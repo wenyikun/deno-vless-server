@@ -157,10 +157,6 @@ async function handleTCPOutBound(
       hostname: address,
     })
 
-    if (port === 443) {
-      await tcpSocket.handshake()
-    }
-
     remoteSocket.value = tcpSocket
     log(`connected to ${address}:${port}`)
     const writer = tcpSocket.writable.getWriter()
