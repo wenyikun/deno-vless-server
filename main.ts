@@ -155,7 +155,7 @@ async function handleTCPOutBound(
     const tcpSocket = await (port === 443 ? Deno.connectTls : Deno.connect)({
       port: port,
       hostname: address,
-      ignoreCert: true
+      verify: false
     })
 
     remoteSocket.value = tcpSocket
