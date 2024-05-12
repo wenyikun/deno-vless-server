@@ -3,7 +3,6 @@ import { load } from 'https://deno.land/std@0.224.0/dotenv/mod.ts'
 const env = await load()
 const userID = env['UUID'] || 'd342d11e-d424-4583-b36e-524ab1f0afa4'
 const proxyIP = env['PROXYIP'] || ''
-Deno.env.set('TLS_CA_STORE', 'system')
 
 if (!isValidUUID(userID)) {
   throw new Error('uuid is not valid')
