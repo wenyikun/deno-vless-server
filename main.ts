@@ -8,6 +8,8 @@ if (!isValidUUID(userID)) {
   throw new Error('uuid is not valid')
 }
 
+console.log(Deno.version)
+
 Deno.serve(async (request: Request) => {
   const upgrade = request.headers.get('upgrade') || ''
   if (upgrade.toLowerCase() != 'websocket') {
