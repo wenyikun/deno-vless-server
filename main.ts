@@ -152,10 +152,9 @@ async function handleTCPOutBound(
 ) {
   async function connectAndWrite(address, port) {
     // Make a TCP connection
-    const tcpSocket = await (port === 443 ? Deno.connectTls : Deno.connect)({
+    const tcpSocket = await Deno.connect({
       port: port,
       hostname: address,
-      verify: false
     })
 
     remoteSocket.value = tcpSocket
@@ -377,6 +376,7 @@ async function remoteSocketToWS(remoteSocket, webSocket, vlessResponseHeader, re
           if (webSocket.readyState !== WS_READY_STATE_OPEN) {
             controller.error('webSocket.readyState is not open, maybe close')
           }
+          console.log(chunk)
           if (vlessHeader) {
             webSocket.send(new Uint8Array([...vlessHeader, ...chunk]))
             vlessHeader = null
