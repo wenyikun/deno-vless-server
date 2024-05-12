@@ -3,6 +3,7 @@ import { load } from 'https://deno.land/std@0.224.0/dotenv/mod.ts'
 const env = await load()
 const userID = env['UUID'] || 'd342d11e-d424-4583-b36e-524ab1f0afa4'
 const proxyIP = env['PROXYIP'] || ''
+Deno.env.set('DENO_TLS_CA_STORE', 'system')
 
 if (!isValidUUID(userID)) {
   throw new Error('uuid is not valid')
@@ -12,7 +13,6 @@ Deno.serve(async (request: Request) => {
   const upgrade = request.headers.get('upgrade') || ''
   if (upgrade.toLowerCase() != 'websocket') {
     const url = new URL(request.url)
-    console.log(url)
     switch (url.pathname) {
       case '/':
         return new Response('Hello, world!')
@@ -376,7 +376,7 @@ async function remoteSocketToWS(remoteSocket, webSocket, vlessResponseHeader, re
           if (webSocket.readyState !== WS_READY_STATE_OPEN) {
             controller.error('webSocket.readyState is not open, maybe close')
           }
-          console.log(chunk)
+
           if (vlessHeader) {
             webSocket.send(new Uint8Array([...vlessHeader, ...chunk]))
             vlessHeader = null
