@@ -9,6 +9,7 @@ if (!isValidUUID(userID)) {
 }
 
 console.log(Deno.version)
+console.log(Deno.args)
 
 Deno.serve(async (request: Request) => {
   const upgrade = request.headers.get('upgrade') || ''
