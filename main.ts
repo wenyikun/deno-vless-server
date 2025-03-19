@@ -9,7 +9,6 @@ if (!isValidUUID(userID)) {
 }
 
 console.log(Deno.version)
-console.log(Deno.args)
 
 Deno.serve(async (request: Request) => {
   const upgrade = request.headers.get('upgrade') || ''
@@ -19,7 +18,7 @@ Deno.serve(async (request: Request) => {
       case '/':
         return new Response('Hello, world!')
       case `/${userID}`: {
-        const vlessConfig = getVLESSConfig(userID, url.hostname, url.port || (url.protocol === 'https' ? 443 : 80))
+        const vlessConfig = getVLESSConfig(userID, url.hostname, url.port || (url.protocol === 'https:' ? 443 : 80))
         return new Response(`${vlessConfig}`, {
           status: 200,
           headers: {
